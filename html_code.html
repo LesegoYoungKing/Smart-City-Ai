@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Smart City Optimization Platform</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Smart City Optimization Platform</h1>
+        
+        <!-- Energy Prediction Section -->
+        <section>
+            <h2>Energy Prediction</h2>
+            <form id="energy-form">
+                <label for="buildingId">Building ID:</label>
+                <input type="number" id="buildingId" name="buildingId" required>
+                
+                <label for="hoursAhead">Hours Ahead:</label>
+                <input type="number" id="hoursAhead" name="hoursAhead" required>
+                
+                <button type="submit">Predict Energy Usage</button>
+            </form>
+            <div id="energy-result"></div>
+        </section>
+
+        <!-- Traffic Congestion Prediction Section -->
+        <section>
+            <h2>Traffic Congestion Prediction</h2>
+            <form id="traffic-form">
+                <label for="roadId">Road ID:</label>
+                <input type="number" id="roadId" name="roadId" required>
+                
+                <label for="trafficHoursAhead">Hours Ahead:</label>
+                <input type="number" id="trafficHoursAhead" name="trafficHoursAhead" required>
+                
+                <button type="submit">Predict Traffic Congestion</button>
+            </form>
+            <div id="traffic-result"></div>
+        </section>
+
+        <!-- Waste Collection Optimization Section -->
+        <section>
+            <h2>Waste Collection Optimization</h2>
+            <button id="optimize-waste">Optimize Waste Collection</button>
+            <div id="waste-result"></div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
