@@ -11,6 +11,38 @@
     <div class="container">
         <h1>Smart City Optimization Platform</h1>
         
+        <!-- User Profile Quiz Section -->
+        <section id="quiz-section">
+            <h2>Personalize Your Experience</h2>
+            <form id="quiz-form">
+                <label for="userType">What best describes you?</label>
+                <select id="userType" name="userType" required>
+                    <option value="resident">Resident</option>
+                    <option value="business">Business Owner</option>
+                    <option value="government">Government Official</option>
+                </select>
+
+                <label for="concern">What is your primary concern?</label>
+                <select id="concern" name="concern" required>
+                    <option value="energy">Energy Efficiency</option>
+                    <option value="traffic">Traffic Congestion</option>
+                    <option value="waste">Waste Management</option>
+                </select>
+
+                <label for="location">Your Location:</label>
+                <input type="text" id="location" name="location" required>
+
+                <button type="submit">Submit</button>
+            </form>
+            <div id="quiz-result"></div>
+        </section>
+
+        <!-- AI-Tailored Solutions Section -->
+        <section id="ai-solutions-section" style="display:none;">
+            <h2>AI-Tailored Solutions for You</h2>
+            <div id="ai-solution"></div>
+        </section>
+
         <!-- Energy Prediction Section -->
         <section>
             <h2>Energy Prediction</h2>
