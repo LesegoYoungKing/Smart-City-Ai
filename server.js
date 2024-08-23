@@ -1,60 +1,45 @@
-// server.js
 const express = require('express');
-const cors = require('cors');
-
-// Import dummy data
-const { energyData, trafficData, wasteData } = require('./data');
-
-// Import functions for each core focus area
-const { predictEnergyUsage, getBuildingEfficiency } = require('./energyFunctions');
-const { predictTrafficCongestion, optimizeRouting } = require('./trafficFunctions');
-const { predictWasteGeneration, optimizeWasteCollection } = require('./wasteFunctions.js');
-
+const bodyParser = require('body-parser');
 const app = express();
-const PORT = 3000;
+const port = 3000;
 
-// Middleware
-app.use(cors());
-app.use(express.json());
+app.use(bodyParser.json());
+app.use(express.static('public')); // Adjust if your HTML/JS/CSS files are in a 'public' folder
 
-// Energy Management Endpoints
+app.post('/ai-solution', (req, res) => {
+    const { userType, concern, location } = req.body;
+    let solution = '';
+
+    if (userType === 'resident' && concern === 'energy') {
+        solution = `Optimize energy consumption in ${location} with smart meters.`;
+    } else if (userType === 'business' && concern === 'traffic') {
+        solution = `Use real-time traffic data for logistics in ${location}.`;
+    } else if (userType === 'government' && concern === 'waste') {
+        solution = `AI-driven waste collection schedules in ${location}.`;
+    } else {
+        solution = 'No suitable solution found.';
+    }
+
+    res.json({ solution });
+});
+
 app.get('/energy/predict/:buildingId/:hoursAhead', (req, res) => {
     const { buildingId, hoursAhead } = req.params;
-    const prediction = predictEnergyUsage(parseInt(buildingId), parseInt(hoursAhead));
-    res.json({ buildingId, hoursAhead, prediction });
+    res.json({ prediction: `Estimated usage for Building ${buildingId} in ${hoursAhead} hours.` });
 });
 
-app.get('/energy/efficiency/:buildingId', (req, res) => {
-    const { buildingId } = req.params;
-    const efficiency = getBuildingEfficiency(parseInt(buildingId));
-    res.json({ buildingId, efficiency });
-});
-
-// Transportation Optimization Endpoints
 app.get('/traffic/predict/:roadId/:hoursAhead', (req, res) => {
     const { roadId, hoursAhead } = req.params;
-    const prediction = predictTrafficCongestion(parseInt(roadId), parseInt(hoursAhead));
-    res.json({ roadId, hoursAhead, prediction });
-});
-
-app.get('/traffic/route', (req, res) => {
-    const { startLocation, endLocation } = req.query;
-    const route = optimizeRouting(startLocation, endLocation);
-    res.json(route);
-});
-
-// Waste Management Endpoints
-app.get('/waste/predict/:binId/:daysAhead', (req, res) => {
-    const { binId, daysAhead } = req.params;
-    const prediction = predictWasteGeneration(parseInt(binId), parseInt(daysAhead));
-    res.json({ binId, daysAhead, prediction });
+    res.json({ prediction: `Estimated congestion for Road ${roadId} in ${hoursAhead} hours.` });
 });
 
 app.get('/waste/optimize', (req, res) => {
-    const optimizedRoute = optimizeWasteCollection();
-    res.json(optimizedRoute);
+    res.json([
+        { binId: 1, wasteAmount: '50%' },
+        { binId: 2, wasteAmount: '70%' },
+    ]);
 });
 
-app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+app.listen(port, () => {
+    console.log(`Server running at http://localhost:${port}`);
 });
