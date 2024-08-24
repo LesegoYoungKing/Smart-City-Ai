@@ -1,85 +1,462 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <title>Smart City Optimization Platform</title>
+    <title>Fin-Erth - Smart Cities AI Platform</title>
+    <style>
+        /* Original and additional CSS */
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            z-index: 1001;
+            background-color: rgba(15, 15, 16, 0.627);
+            transition: transform 0.3s ease-out;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        .nominate-btn {
+            background-color: #7fd1ff;
+            color: #0a0f1c;
+            padding: 10px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+        }
+
+        .burger {
+            display: none;
+            cursor: pointer;
+        }
+
+        .burger div {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .parallax {
+            perspective: 1px;
+            height: 100vh;
+            overflow-x: hidden;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .parallax__layer {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+
+        .parallax__layer--back {
+            transform: translateZ(-1px) scale(2);
+            background-image: url('footer-green-02.png');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .parallax__layer--base {
+            transform: translateZ(0);
+        }
+
+        .earth-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 300px;
+        }
+
+        .earth {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background-image: url('isometric-city-globe-transparent-background-ai-generated_768733-47776-removebg-preview (2).png');
+            background-size: cover;
+            animation: rotate 60s linear infinite;
+        }
+
+        .orbiting-element {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 50px;
+            height: 50px;
+            animation: orbit 20s linear infinite;
+        }
+
+        .orbiting-element img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .main-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            font-size: 3vw;
+            opacity: 0;
+            transition: opacity 0.5s, transform 0.5s;
+            width: 80%;
+        }
+
+        .main-text.visible {
+            opacity: 1;
+            transform: translate(-50%, -50%) translateY(0);
+        }
+
+        .form-container {
+            background-color: rgba(5, 5, 6, 0.423);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 50px auto;
+            max-width: 800px;
+            transform: translateZ(0);
+            position: relative;
+            background-image: url('footer-green-awards.png');
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #ffffff;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        input, select, textarea {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            background-color: rgba(5, 5, 6, 0.423);
+            color: #ffffff;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        button {
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #energy-result, #traffic-result, #waste-result {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #1a2030;
+            border-radius: 4px;
+        }
+
+        fieldset {
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        legend {
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes orbit {
+            from { transform: rotate(0deg) translateX(200px) rotate(0deg); }
+            to { transform: rotate(360deg) translateX(200px) rotate(-360deg); }
+        }
+
+        @media screen and (max-width: 768px) {
+            .nav-links {
+                position: absolute;
+                right: 0px;
+                height: 92vh;
+                top: 8vh;
+                background-color: rgba(10, 15, 28, 0.9);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 50%;
+                transform: translateX(100%);
+                transition: transform 0.5s ease-in;
+            }
+
+            .nav-links li {
+                opacity: 0;
+            }
+
+            .burger {
+                display: block;
+            }
+
+            .nav-active {
+                transform: translateX(0%);
+            }
+
+            @keyframes navLinkFade {
+                from {
+                    opacity: 0;
+                    transform: translateX(50px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateX(0px);
+                }
+            }
+
+            .toggle .line1 {
+                transform: rotate(-45deg) translate(-5px, 6px);
+            }
+
+            .toggle .line2 {
+                opacity: 0;
+            }
+
+            .toggle .line3 {
+                transform: rotate(45deg) translate(-5px, -6px);
+            }
+
+            .earth-container {
+                width: 200px;
+                height: 200px;
+            }
+
+            .main-text {
+                font-size: 5vw;
+            }
+        }
+
+        /* Additional CSS for Appliance Status and Features */
+        .appliance-status {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        .appliance {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px;
+            text-align: center;
+            width: 150px;
+        }
+
+        .appliance-icon {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .appliance-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .appliance-indicator {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            margin: 0 auto;
+            animation: color-change 5s infinite;
+        }
+
+        @keyframes color-change {
+            0% { background-color: green; }
+            33% { background-color: yellow; }
+            66% { background-color: red; }
+            100% { background-color: green; }
+        }
+
+        .feature ul {
+            text-align: left;
+            padding-left: 20px;
+        }
+
+        .feature li {
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
+
 <body>
-    <div class="container">
-        <h1>Smart City Optimization Platform</h1>
-
-        <!-- Energy Prediction Form -->
-        <section>
-            <h2>Energy Prediction</h2>
-            <form id="energy-form">
-                <label for="buildingId">Building ID:</label>
-                <input type="number" id="buildingId" name="buildingId" required>
-
-                <label for="hoursAhead">Hours Ahead:</label>
-                <input type="number" id="hoursAhead" name="hoursAhead" required>
-
-                <button type="submit">Predict Energy Usage</button>
-            </form>
-            <div id="energy-result"></div>
-        </section>
-
-        <!-- Traffic Congestion Prediction Form -->
-        <section>
-            <h2>Traffic Congestion Prediction</h2>
-            <form id="traffic-form">
-                <label for="roadId">Road ID:</label>
-                <input type="number" id="roadId" name="roadId" required>
-
-                <label for="trafficHoursAhead">Hours Ahead:</label>
-                <input type="number" id="trafficHoursAhead" name="trafficHoursAhead" required>
-
-                <button type="submit">Predict Traffic Congestion</button>
-            </form>
-            <div id="traffic-result"></div>
-        </section>
-
-        <!-- Waste Collection Optimization -->
-        <section>
-            <h2>Waste Collection Optimization</h2>
-            <button id="optimize-waste">Optimize Waste Collection</button>
-            <div id="waste-result"></div>
-        </section>
-
-        <!-- Quiz Form for AI-Tailored Solutions -->
-        <section>
-            <h2>Get Your AI-Tailored Solution</h2>
-            <form id="quiz-form">
-                <label for="userType">User Type:</label>
-                <select id="userType" name="userType" required>
-                    <option value="resident">Resident</option>
-                    <option value="business">Business</option>
-                    <option value="government">Government</option>
-                </select>
-
-                <label for="concern">Primary Concern:</label>
-                <select id="concern" name="concern" required>
-                    <option value="energy">Energy</option>
-                    <option value="traffic">Traffic</option>
-                    <option value="waste">Waste</option>
-                </select>
-
-                <label for="location">Location:</label>
-                <input type="text" id="location" name="location" required>
-
-                <button type="submit">Get Solution</button>
-            </form>
-            <div id="quiz-result"></div>
-        </section>
-
-        <!-- AI Solutions Section -->
-        <section id="ai-solutions-section" style="display: none;">
-            <h2>AI-Tailored Solutions</h2>
-            <div id="ai-solution"></div>
-        </section>
+    <div class="header">
+        <div class="logo">Fin-Erth</div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Features</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
     </div>
 
-    <script src="script.js"></script>
+    <div class="parallax">
+        <div class="parallax__layer parallax__layer--back"></div>
+        <div class="parallax__layer parallax__layer--base">
+            <div class="earth-container">
+                <div class="earth"></div>
+            </div>
+            <div class="orbiting-element">
+                <img src="your-image-url.png" alt="Orbiting Icon">
+            </div>
+            <div class="main-text">Welcome to Fin-Erth Smart Cities AI Platform</div>
+        </div>
+    </div>
+
+    <div class="form-container">
+        <h1>Grid Balance Maintenance App</h1>
+
+        <div class="feature">
+            <img src="feature1.jpg" alt="Feature 1">
+            <div>
+                <h2>Real-Time Grid Status Monitorings</h2>
+                <p> 
+                    Smart Meters & IoT Devices: The app would connect to smart meters and IoT devices installed in homes and businesses to monitor energy consumption in real-time.
+                    AI Algorithms for Prediction: AI models could be trained on historical data to predict energy demand and grid stability. Machine learning models like time series forecasting (e.g., ARIMA, LSTM) could be used to predict short-term and long-term energy demand.
+                    Dynamic Updates: The AI would analyze real-time data and predict potential grid imbalances. It could then send notifications to users via the app to suggest reducing or shifting their energy usage.</p>
+                <div class="appliance-status">
+                    <div class="appliance">
+                        <div class="appliance-icon">💡</div>
+                        <div class="appliance-name">Lighting</div>
+                        <div class="appliance-indicator"></div>
+                    </div>
+                    <div class="appliance">
+                        <div class="appliance-icon">❄️</div>
+                        <div class="appliance-name">HVAC</div>
+                        <div class="appliance-indicator"></div>
+                    </div>
+                    <div class="appliance">
+                        <div class="appliance-icon">🔌</div>
+                        <div class="appliance-name">Outlets</div>
+                        <div class="appliance-indicator"></div>
+                    </div>
+                    <div class="appliance">
+                        <div class="appliance-icon">🚗</div>
+                        <div class="appliance-name">EV Charger</div>
+                        <div class="appliance-indicator"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="feature">
+            <img src="feature2.jpg" alt="Feature 2">
+            <div>
+                <h2>Innovative Solutions</h2>
+                <p>AI-Driven Load Management: The AI system will automate demand response by managing connected devices like HVAC systems, lighting, and EV chargers. When the grid is under stress, the AI will temporarily reduce power to non-essential devices to balance demand and supply.
+                    User Preferences & Behavior Analysis: AI can learn user behavior and preferences to minimize disruptions. For example, it might delay charging an electric vehicle until after peak hours or slightly adjust thermostat settings to reduce energy usage during critical periods.</p>
+                <ul>
+                    <li><strong>Virtual Batteries:</strong> Aggregate small-scale energy storage systems to create a large, distributed battery network.</li>
+                    <li><strong>Virtual Power Plants:</strong> Coordinate distributed energy resources to function as a single power generation facility.</li>
+                    <li><strong>Demand Response:</strong> Implement automated load shedding and shifting based on grid conditions.</li>
+                    <li><strong>AI Predictive Analytics:</strong> Forecast energy demand and supply to optimize grid operations.</li>
+                    
+                </ul>
+            </div>
+        </div>
+
+        <br>
+
+        <div style="display: flex; align-items: center; font-family: Arial, sans-serif;">
+            <div style="width: 15px; height: 15px; border-radius: 50%; margin-right: 10px; background-color: green; animation: pulse 1.5s infinite;"></div>
+            <p style="margin: 0;">The current grid status is stable.</p>
+        </div>
+        
+        <style>
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 0.7;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        </style>
+
+    <script>
+        // Burger menu functionality
+        const burger = document.querySelector('.burger');
+        const navLinks = document.querySelector('.nav-links');
+
+        burger.addEventListener('click', () => {
+            navLinks.classList.toggle('nav-active');
+            burger.classList.toggle('toggle');
+        });
+    </script>
 </body>
+
 </html>
