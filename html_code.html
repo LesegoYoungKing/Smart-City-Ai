@@ -1,16 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Smart City AI </title>
+    <title>Smart City AI</title>
     <style>
-        /* Original and additional CSS */
+        /* New Styles for Appliance Status */
+        .appliance-status {
+            text-align: center;
+            padding: 20px;
+            margin: 0 auto;
+            max-width: 600px;
+            background: rgba(15, 15, 16, 0.627);
+            border-radius: 8px;
+            border: 1px solid #7fd1ff;
+        }
+    
+        .appliance-status h2 {
+            color: #7fd1ff;
+        }
+    
+        .appliance {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: 1px solid #444;
+        }
+    
+        .appliance:last-child {
+            border-bottom: none;
+        }
+    
+        .appliance-icon img {
+            width: 40px; /* Adjusted size */
+            height: 40px; /* Adjusted size */
+            border-radius: 50%; /* Optional: Makes icons circular */
+            object-fit: cover; /* Ensures icons fit within their container without distortion */
+        }
+    
+        .appliance-name {
+            flex-grow: 1;
+            margin-left: 10px;
+            color: #ffffff;
+            font-size: 1.2em;
+        }
+    
+        .appliance-indicator {
+            width: 20px; /* Increased size for better visibility */
+            height: 20px;
+            border-radius: 50%;
+            background-color: #1eff00; /* Default color for OFF */
+            box-shadow: 0 0 10px #ff0000; /* Glow effect for OFF */
+            animation: pulse-off 1.5s infinite; /* Animation for OFF */
+        }
+    
+        .status-on .appliance-indicator {
+            background-color: #00ff00; /* Color for ON */
+            box-shadow: 0 0 10px #00ff00; /* Glow effect for ON */
+            animation: pulse-on 1.5s infinite; /* Animation for ON */
+        }
+    
+        .status-off .appliance-indicator {
+            background-color: #ff0000; /* Color for OFF */
+            box-shadow: 0 0 10px #ff0000; /* Glow effect for OFF */
+            animation: pulse-off 1.5s infinite; /* Animation for OFF */
+        }
+    
+        /* Keyframes for animations */
+        @keyframes pulse-on {
+            0% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 1;
+                background-color: #00ff00; /* More vibrant pulse for ON */
+            }
+            100% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+        }
+    
+        @keyframes pulse-off {
+            0% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 1;
+                background-color: #ff0000; /* More vibrant pulse for OFF */
+            }
+            100% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+        }
+    </style>
+    
+    
+    <style>
+        /* Sci-fi Style CSS */
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
+
         body, html {
             height: 100%;
             margin: 0;
-            font-family: Arial, sans-serif;
+            font-family: 'Orbitron', sans-serif;
             background-color: #000;
             color: #ffffff;
             overflow-x: hidden;
@@ -33,6 +132,8 @@
         .logo {
             font-size: 24px;
             font-weight: bold;
+            color: #7fd1ff;
+            text-shadow: 0 0 5px #7fd1ff, 0 0 10px #7fd1ff, 0 0 15px #7fd1ff;
         }
 
         .nav-links {
@@ -40,9 +141,10 @@
         }
 
         .nav-links a {
-            color: white;
+            color: #7fd1ff;
             text-decoration: none;
             margin-left: 20px;
+            text-shadow: 0 0 5px #7fd1ff;
         }
 
         .nominate-btn {
@@ -51,6 +153,7 @@
             padding: 10px 20px;
             border-radius: 20px;
             text-decoration: none;
+            text-shadow: 0 0 5px #0a0f1c;
         }
 
         .burger {
@@ -136,6 +239,8 @@
             opacity: 0;
             transition: opacity 0.5s, transform 0.5s;
             width: 80%;
+            color: #7fd1ff;
+            text-shadow: 0 0 10px #7fd1ff;
         }
 
         .main-text.visible {
@@ -156,7 +261,8 @@
 
         h1, h2 {
             text-align: center;
-            color: #ffffff;
+            color: #7fd1ff;
+            text-shadow: 0 0 5px #7fd1ff, 0 0 10px #7fd1ff;
         }
 
         form {
@@ -227,6 +333,19 @@
             to { transform: rotate(360deg) translateX(200px) rotate(-360deg); }
         }
 
+        @keyframes color-change {
+            0% { background-color: green; }
+            33% { background-color: yellow; }
+            66% { background-color: red; }
+            100% { background-color: green; }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
         @media screen and (max-width: 768px) {
             .nav-links {
                 position: absolute;
@@ -290,56 +409,58 @@
         /* Additional CSS for Appliance Status and Features */
         .appliance-status {
             display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .appliance-status img {
+            width: 50px;
+            height: auto;
+            margin-right: 10px;
+        }
+
+        .appliance-status h3 {
+            margin: 0;
+            color: #7fd1ff;
+        }
+
+        .card-container {
+            display: flex;
             flex-wrap: wrap;
-            justify-content: space-around;
-            margin-top: 20px;
+            gap: 20px;
         }
 
-        .appliance {
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            padding: 15px;
-            margin: 10px;
-            text-align: center;
-            width: 150px;
+        .card {
+            background-color: #1a1a1a;
+            color: #7fd1ff;
+            padding: 20px;
+            margin-right: 20px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 255, 255, 0.7);
+            border-radius: 8px;
+            min-width: 300px;
+            max-width: 300px;
+            vertical-align: top;
+            transform: scale(1);
+            transition: transform 0.3s ease-in-out, max-height 0.3s ease-in-out;
+            overflow: hidden;
+            white-space: normal;
+            max-height: 200px;
+            position: relative;
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
         }
 
-        .appliance-icon {
-            font-size: 24px;
-            margin-bottom: 10px;
+        .card.active {
+            transform: scale(1.1);
+            max-height: 600px;
         }
 
-        .appliance-name {
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .appliance-indicator {
-            width: 15px;
-            height: 15px;
-            border-radius: 50%;
-            margin: 0 auto;
-            animation: color-change 5s infinite;
-        }
-
-        @keyframes color-change {
-            0% { background-color: green; }
-            33% { background-color: yellow; }
-            66% { background-color: red; }
-            100% { background-color: green; }
-        }
-
-        .feature ul {
-            text-align: left;
-            padding-left: 20px;
-        }
-
-        .feature li {
-            margin-bottom: 10px;
+        .card h3 {
+            margin-top: 0;
+            color: #7fd1ff;
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
         }
     </style>
 </head>
-
 <body>
     <div class="header">
         <div class="logo">Fin-Erth</div>
@@ -365,7 +486,7 @@
                 <div class="earth"></div>
             </div>
             <div class="orbiting-element">
-                <img src="C:\Users\27614\Desktop\IT Modules\Smart-City-Ai-main\green-energy-efficient-lightbulb.png" alt="Orbiting Icon">
+                <
             </div>
             <div class="main-text">Welcome to the Smart City AI Platform</div>
         </div>
@@ -373,99 +494,139 @@
 
     <div class="form-container">
         <h1>Grid Balance Maintenance App</h1>
-
-        <div class="feature">
-            <img src="feature1.jpg" alt="Feature 1">
-            <div>
-                <h2>Real-Time Grid Status Monitorings</h2>
-                <p> 
-                    Smart Meters & IoT Devices: The app would connect to smart meters and IoT devices installed in homes and businesses to monitor energy consumption in real-time.
-                    AI Algorithms for Prediction: AI models could be trained on historical data to predict energy demand and grid stability. Machine learning models like time series forecasting (e.g., ARIMA, LSTM) could be used to predict short-term and long-term energy demand.
-                    Dynamic Updates: The AI would analyze real-time data and predict potential grid imbalances. It could then send notifications to users via the app to suggest reducing or shifting their energy usage.</p>
-                    <div class="appliance-status">
-                        <div class="appliance">
-                            <div class="appliance-icon">
-                                <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExazUxdWpxb292b25kOWc2aG84NzlncjZqc3oza3d6ZHVjZ2M0d3IzYyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/TaC6gXdan989My4Eub/giphy.webp" alt="Lighting GIF" style="width: 50px; height: 50px;">
-                            </div>
-                            <div class="appliance-name">Lighting</div>
-                            <div class="appliance-indicator"></div>
-                        </div>
-                        <div class="appliance">
-                            <div class="appliance-icon">
-                                <img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExdWNjajJ6MGhidnNoc2tzamN0d3NrdWRtMDA2b2U3ZjQ4eHcxMGxxMCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/u7zrgctqeM3jwQKIvA/giphy.webp" alt="HVAC GIF" style="width: 50px; height: 50px;">
-                            </div>
-                            <div class="appliance-name">HVAC</div>
-                            <div class="appliance-indicator"></div>
-                        </div>
-                        <div class="appliance">
-                            <div class="appliance-icon">
-                                <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExMDRwaTJ3eDUyY3Ntd3NtNmQ5aGU1dWs0d253a2hmZXIzaWRtNmhhZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/7taf3KEonGJ76mlSEt/giphy.webp" alt="Outlets GIF" style="width: 50px; height: 50px;">
-                            </div>
-                            <div class="appliance-name">Outlets</div>
-                            <div class="appliance-indicator"></div>
-                        </div>
-                        <div class="appliance">
-                            <div class="appliance-icon">
-                                <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExaTg2bm5nenMzbDdoOXZvY3dnNmw0aW8wdmFiZWh3d3BkdXJtMWxieSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Wd5pozrB1OLB7K7VxB/giphy.webp" alt="EV Charger GIF" style="width: 50px; height: 50px;">
-                            </div>
-                            <div class="appliance-name">EV Charger</div>
-                            <div class="appliance-indicator"></div>
-                        </div>
-                    </div>
-                    
-            </div>
-        </div>
-
-        <div class="feature">
-            <img src="feature2.jpg" alt="Feature 2">
-            <div>
-                <h2>Innovative Solutions</h2>
-                <p>AI-Driven Load Management: The AI system will automate demand response by managing connected devices like HVAC systems, lighting, and EV chargers. When the grid is under stress, the AI will temporarily reduce power to non-essential devices to balance demand and supply.
-                    User Preferences & Behavior Analysis: AI can learn user behavior and preferences to minimize disruptions. For example, it might delay charging an electric vehicle until after peak hours or slightly adjust thermostat settings to reduce energy usage during critical periods.</p>
-                <ul>
-                    <li><strong>Virtual Batteries:</strong> Aggregate small-scale energy storage systems to create a large, distributed battery network.</li>
-                    <li><strong>Virtual Power Plants:</strong> Coordinate distributed energy resources to function as a single power generation facility.</li>
-                    <li><strong>Demand Response:</strong> Implement automated load shedding and shifting based on grid conditions.</li>
-                    <li><strong>AI Predictive Analytics:</strong> Forecast energy demand and supply to optimize grid operations.</li>
-                    
-                </ul>
-            </div>
-        </div>
-
-        <br>
-
-        <div style="display: flex; align-items: center; font-family: Arial, sans-serif;">
-            <div style="width: 15px; height: 15px; border-radius: 50%; margin-right: 10px; background-color: green; animation: pulse 1.5s infinite;"></div>
-            <p style="margin: 0;">The current grid status is stable.</p>
-        </div>
         
-        <style>
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-                opacity: 1;
-            }
-            50% {
-                transform: scale(1.2);
-                opacity: 0.7;
-            }
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-        </style>
+        </div>
+        <h2>Innovative Solutions</h2>
+        <p>AI-Driven Load Management: The AI system will automate demand response by managing connected devices like HVAC systems, lighting, and EV chargers. When the grid is under stress, the AI will temporarily reduce power to non-essential devices to balance demand and supply. User Preferences & Behavior Analysis: AI can learn user behavior and preferences to minimize disruptions. For example, it might delay charging an electric vehicle until after peak hours or slightly adjust thermostat settings to reduce energy usage during critical periods.</p>
+        <div class="appliance-status">
+            <div class="appliance">
+                <div class="appliance-icon">
+                    <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExazUxdWpxb292b25kOWc2aG84NzlncjZqc3oza3d6ZHVjZ2M0d3IzYyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/TaC6gXdan989My4Eub/giphy.webp" alt="Lighting GIF" style="width: 50px; height: 50px;">
+                </div>
+                <div class="appliance-name">Lighting</div>
+                <div class="appliance-indicator"></div>
+            </div>
+            <div class="appliance">
+                <div class="appliance-icon">
+                    <img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExdWNjajJ6MGhidnNoc2tzamN0d3NrdWRtMDA2b2U3ZjQ4eHcxMGxxMCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/u7zrgctqeM3jwQKIvA/giphy.webp" alt="HVAC GIF" style="width: 50px; height: 50px;">
+                </div>
+                <div class="appliance-name">HVAC</div>
+                <div class="appliance-indicator"></div>
+            </div>
+            <div class="appliance">
+                <div class="appliance-icon">
+                    <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExMDRwaTJ3eDUyY3Ntd3NtNmQ5aGU1dWs0d253a2hmZXIzaWRtNmhhZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/7taf3KEonGJ76mlSEt/giphy.webp" alt="Outlets GIF" style="width: 50px; height: 50px;">
+                </div>
+                <div class="appliance-name">Outlets</div>
+                <div class="appliance-indicator"></div>
+            </div>
+            <div class="appliance">
+                <div class="appliance-icon">
+                    <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExaTg2bm5nenMzbDdoOXZvY3dnNmw0aW8wdmFiZWh3d3BkdXJtMWxieSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Wd5pozrB1OLB7K7VxB/giphy.webp" alt="EV Charger GIF" style="width: 50px; height: 50px;">
+                </div>
+                <div class="appliance-name">EV Charger</div>
+                <div class="appliance-indicator"></div>
+            </div>
+        </div>
+        <ul>
+            <li><strong>Virtual Batteries:</strong> Aggregate small-scale energy storage systems to create a large, distributed battery network.</li>
+            <li><strong>Virtual Power Plants:</strong> Coordinate distributed energy resources to function as a single power generation facility.</li>
+            <li><strong>Demand Response:</strong> Implement automated load shedding and shifting based on grid conditions.</li>
+            <li><strong>AI Predictive Analytics:</strong> Forecast energy demand and supply to optimize grid operations.</li>
+        </ul>
+        <button class="dropbtn" onclick="toggleCards()">Learn More</button>
+        <div id="dropdown-cards" class="dropdown-cards">
+            <div class="card-container">
+                <div class="card" onclick="toggleCard(this)">
+                    <h3>Smart Meters & IoT Devices</h3>
+                    <p><strong>Installation & Connectivity:</strong> Smart meters and IoT devices would be installed in homes and businesses to monitor energy consumption. These devices would include smart thermostats, lighting controls, HVAC systems, and EV chargers.</p>
+                    <p><strong>Communication Protocols:</strong> These devices would communicate with the app using standardized communication protocols such as Zigbee, Z-Wave, Wi-Fi, or Bluetooth, depending on the device type. They will send real-time data to the app regarding energy usage.</p>
+                    <p><strong>Integration with App:</strong> The app would interface with these devices via APIs (Application Programming Interfaces) provided by the device manufacturers. The app would collect and process this data to provide insights and recommendations.</p>
+                </div>
+                <div class="card" onclick="toggleCard(this)">
+                    <h3>Advanced Analytics</h3>
+                    <p><strong>Energy Consumption Patterns:</strong> Analyzing data from smart meters to understand energy usage patterns and identify areas for optimization.</p>
+                    <p><strong>Predictive Maintenance:</strong> Using AI to predict when equipment might fail or require maintenance based on usage patterns and performance data.</p>
+                    <p><strong>Consumer Behavior Insights:</strong> Gathering and analyzing data on how users interact with their energy systems to enhance user experience and optimize energy usage.</p>
+                </div>
+                <div class="card" onclick="toggleCard(this)">
+                    <h3>Grid Optimization</h3>
+                    <p><strong>Dynamic Load Balancing:</strong> Adjusting energy distribution in real-time to prevent overloads and ensure efficient usage.</p>
+                    <p><strong>Renewable Energy Integration:</strong> Managing the incorporation of renewable energy sources into the grid to optimize their usage and stability.</p>
+                    <p><strong>Emergency Response:</strong> Implementing strategies for rapid response to grid failures or emergencies to minimize disruption.</p>
+                </div>
+                <div class="card" onclick="toggleCard(this)">
+                    <h3>Consumer Engagement</h3>
+                    <p><strong>Real-Time Notifications:</strong> Sending alerts and updates to users about their energy usage and system status.</p>
+                    <p><strong>Interactive Dashboards:</strong> Providing users with visual tools to monitor and manage their energy consumption effectively.</p>
+                    <p><strong>Incentives and Rewards:</strong> Offering rewards for energy-saving behaviors and participation in demand response programs.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Grid Management Section -->
+    <div class="form-container">
+        <h1>Grid Management</h1>
+        <h2>Overview</h2>
+        <p>Effective grid management is essential for ensuring reliable and efficient energy distribution. Our system uses advanced technologies to monitor and control the grid, balancing supply and demand in real-time.</p>
+        <ul>
+            <li><strong>Real-Time Monitoring:</strong> Continuous tracking of grid performance and energy flow to detect issues early.</li>
+            <li><strong>Automated Control:</strong> Automated systems to adjust energy distribution based on real-time data and forecasts.</li>
+            <li><strong>Demand Forecasting:</strong> Predicting future energy needs to ensure adequate supply and prevent shortages.</li>
+            <li><strong>Incident Management:</strong> Rapid response to grid failures or disruptions to minimize impact.</li>
+        </ul>
+        <button class="dropbtn" onclick="toggleGridManagement()">Learn More</button>
+        <div id="grid-management-cards" class="dropdown-cards">
+            <div class="card-container">
+                <div class="card" onclick="toggleCard(this)">
+                    <h3>Grid Monitoring Systems</h3>
+                    <p><strong>Data Collection:</strong> Utilizing sensors and monitoring tools to gather real-time data on grid performance.</p>
+                    <p><strong>Analytics Tools:</strong> Applying advanced analytics to interpret data and make informed decisions.</p>
+                </div>
+                <div class="card" onclick="toggleCard(this)">
+                    <h3>Load Balancing</h3>
+                    <p><strong>Dynamic Adjustments:</strong> Real-time adjustments to load distribution to maintain grid stability.</p>
+                    <p><strong>Demand Response:</strong> Implementing strategies to manage peak demand and avoid overloads.</p>
+                </div>
+                <div class="card" onclick="toggleCard(this)">
+                    <h3>Grid Optimization</h3>
+                    <p><strong>Efficiency Improvements:</strong> Enhancing the efficiency of energy distribution and reducing losses.</p>
+                    <p><strong>Renewable Integration:</strong> Optimizing the use of renewable energy sources within the grid.</p>
+                </div>
+                <div class="card" onclick="toggleCard(this)">
+                    <h3>Emergency Response</h3>
+                    <p><strong>Incident Detection:</strong> Identifying and responding to grid failures or disruptions promptly.</p>
+                    <p><strong>Restoration Plans:</strong> Implementing strategies to restore normal grid operations as quickly as possible.</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
-        // Burger menu functionality
-        const burger = document.querySelector('.burger');
-        const navLinks = document.querySelector('.nav-links');
+        document.addEventListener('DOMContentLoaded', () => {
+            const burger = document.querySelector('.burger');
+            const navLinks = document.querySelector('.nav-links');
 
-        burger.addEventListener('click', () => {
-            navLinks.classList.toggle('nav-active');
-            burger.classList.toggle('toggle');
+            burger.addEventListener('click', () => {
+                navLinks.classList.toggle('nav-active');
+                burger.classList.toggle('toggle');
+            });
         });
+
+        function toggleCards() {
+            const dropdownCards = document.getElementById('dropdown-cards');
+            dropdownCards.style.display = dropdownCards.style.display === 'none' || !dropdownCards.style.display ? 'block' : 'none';
+        }
+
+        function toggleGridManagement() {
+            const gridManagementCards = document.getElementById('grid-management-cards');
+            gridManagementCards.style.display = gridManagementCards.style.display === 'none' || !gridManagementCards.style.display ? 'block' : 'none';
+        }
+
+        function toggleCard(card) {
+            card.classList.toggle('active');
+        }
     </script>
 </body>
-
 </html>
