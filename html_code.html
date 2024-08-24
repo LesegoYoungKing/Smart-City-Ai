@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart City AI</title>
+    
+    /* Appliances */
     <style>
         /* New Styles for Appliance Status */
         .appliance-status {
@@ -21,12 +23,16 @@
         }
     
         .appliance {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px;
-            border-bottom: 1px solid #444;
-        }
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #444;
+}
+
+
+
+        
     
         .appliance:last-child {
             border-bottom: none;
@@ -463,13 +469,11 @@
 </head>
 <body>
     <div class="header">
-        <div class="logo">Fin-Erth</div>
+        <div class="logo">Smart City Ai</div>
         <nav>
             <ul class="nav-links">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Features</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Contact</a></li>
+                <li><a href="#"></a></li>
+             
             </ul>
             <div class="burger">
                 <div class="line1"></div>
@@ -497,37 +501,39 @@
         
         </div>
         <h2>Innovative Solutions</h2>
-        <p>AI-Driven Load Management: The AI system will automate demand response by managing connected devices like HVAC systems, lighting, and EV chargers. When the grid is under stress, the AI will temporarily reduce power to non-essential devices to balance demand and supply. User Preferences & Behavior Analysis: AI can learn user behavior and preferences to minimize disruptions. For example, it might delay charging an electric vehicle until after peak hours or slightly adjust thermostat settings to reduce energy usage during critical periods.</p>
-        <div class="appliance-status">
+        <p>AI-Driven Load Management: The AI system will automate demand response by managing connected devices like HVAC systems, lighting, and EV chargers. When the grid is under stress, the AI will temporarily reduce power to non-essential devices to balance demand and supply. User Preferences & Behavior Analysis: AI can learn user behavior and preferences to minimize disruptions. For example, it might delay charging an electric vehicle until after peak hours or slightly adjust thermostat settings to reduce energy usage during critical periods. 
+            <div class="appliance-status">
             <div class="appliance">
                 <div class="appliance-icon">
-                    <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExazUxdWpxb292b25kOWc2aG84NzlncjZqc3oza3d6ZHVjZ2M0d3IzYyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/TaC6gXdan989My4Eub/giphy.webp" alt="Lighting GIF" style="width: 50px; height: 50px;">
+                    <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExazUxdWpxb292b25kOWc2aG84NzlncjZqc3oza3d6ZHVjZ2M0d3IzYyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/TaC6gXdan989My4Eub/giphy.webp" alt="Lighting GIF">
                 </div>
                 <div class="appliance-name">Lighting</div>
                 <div class="appliance-indicator"></div>
             </div>
             <div class="appliance">
                 <div class="appliance-icon">
-                    <img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExdWNjajJ6MGhidnNoc2tzamN0d3NrdWRtMDA2b2U3ZjQ4eHcxMGxxMCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/u7zrgctqeM3jwQKIvA/giphy.webp" alt="HVAC GIF" style="width: 50px; height: 50px;">
+                    <img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExdWNjajJ6MGhidnNoc2tzamN0d3NrdWRtMDA2b2U3ZjQ4eHcxMGxxMCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/u7zrgctqeM3jwQKIvA/giphy.webp" alt="HVAC GIF">
                 </div>
                 <div class="appliance-name">HVAC</div>
                 <div class="appliance-indicator"></div>
             </div>
             <div class="appliance">
                 <div class="appliance-icon">
-                    <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExMDRwaTJ3eDUyY3Ntd3NtNmQ5aGU1dWs0d253a2hmZXIzaWRtNmhhZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/7taf3KEonGJ76mlSEt/giphy.webp" alt="Outlets GIF" style="width: 50px; height: 50px;">
+                    <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExMDRwaTJ3eDUyY3Ntd3NtNmQ5aGU1dWs0d253a2hmZXIzaWRtNmhhZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/7taf3KEonGJ76mlSEt/giphy.webp" alt="Outlets GIF">
                 </div>
                 <div class="appliance-name">Outlets</div>
                 <div class="appliance-indicator"></div>
             </div>
             <div class="appliance">
                 <div class="appliance-icon">
-                    <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExaTg2bm5nenMzbDdoOXZvY3dnNmw0aW8wdmFiZWh3d3BkdXJtMWxieSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Wd5pozrB1OLB7K7VxB/giphy.webp" alt="EV Charger GIF" style="width: 50px; height: 50px;">
+                    <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExaTg2bm5nenMzbDdoOXZvY3dnNmw0aW8wdmFiZWh3d3BkdXJtMWxieSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Wd5pozrB1OLB7K7VxB/giphy.webp" alt="EV Charger GIF">
                 </div>
                 <div class="appliance-name">EV Charger</div>
                 <div class="appliance-indicator"></div>
             </div>
         </div>
+        
+        
         <ul>
             <li><strong>Virtual Batteries:</strong> Aggregate small-scale energy storage systems to create a large, distributed battery network.</li>
             <li><strong>Virtual Power Plants:</strong> Coordinate distributed energy resources to function as a single power generation facility.</li>
